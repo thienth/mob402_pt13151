@@ -28,8 +28,21 @@ router.get('/', function(req, res, next) {
   
 });
 
+router.get('/remove/:id', function(req, res, next){
+  var sql = `select * from posts where id = ?`;
+  var data = [req.params.id];
+  connection.query(sql, data, function (err, rows, fields) {
+    if (err) throw err;
+
+    var data = rows[0];
+    
+    res.render('post/post-form', { data });
+  })
+});
+
 router.get('/add-new', function(req, res, next){
-  res.render('post/add-form');
+  var data = {};
+  res.render('post/post-form', { data });
 });
 
 router.post('/add-new', function(req, res, next){

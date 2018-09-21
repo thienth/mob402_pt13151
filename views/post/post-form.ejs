@@ -1,24 +1,31 @@
-<form action="" method="post">
+<form action="save" method="post">
+	<input type="hidden" name="id" value="<%= data.id%>">
 	<div>
 		<label>title</label>
-		<input type="text" name="title">
+		<input type="text" name="title" value="<%= data.title%>">
 	</div>
 	<div>
 		<label>Image</label>
+		<%if(data.image != undefined){%>
+			<img src="<%= data.image%>" width="250">
+			<br>
+		<%}%>
 		<input type="file" id="updateImage">
-		<input type="hidden" name="image" id="imgValue">
+		<input type="hidden" name="image"
+			value="<%= data.image%>" 
+		 	id="imgValue">
 	</div>
 	<div>
 		<label>Short desc</label>
-		<textarea name="short_desc"></textarea>
+		<textarea name="short_desc"><%= data.short_desc%></textarea>
 	</div>
 	<div>
 		<label>Content</label>
-		<textarea name="content"></textarea>
+		<textarea name="content"><%= data.content%></textarea>
 	</div>
 	<div>
 		<label>Author</label>
-		<input type="text" name="author">
+		<input type="text" name="author" value="<%= data.author%>">
 	</div>
 	<div>
 		<button type="submit">Save</button>

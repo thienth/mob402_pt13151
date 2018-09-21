@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<form action="" method="get">
+		<input type="text" name="keyword">
+		<button type="submit">Search</button>
+	</form>
+	<br>
+	<br>
+	<table border="1">
+		<thead>
+			<th>id</th>
+			<th>Title</th>
+			<th>Image</th>
+			<th>Short description</th>
+			<th>Content</th>
+			<th>Author</th>
+			<th>Views</th>
+			<th>
+				<a href="/add-new">Add new</a>
+			</th>
+		</thead>
+		<tbody>
+		<% for (var i = 0; i < data.length; i++) { %>
+			<tr>
+				<td>
+					<%= data[i].id%>
+				</td>
+				<td>
+					<%= data[i].title%>
+				</td>
+				<td>
+					<img src="<%= data[i].image%>" width="100" />
+				</td>
+				<td>
+					<%= data[i].short_desc%>
+				</td>
+				<td>
+					<%= data[i].content%>
+				</td>
+				<td>
+					<%= data[i].author%>
+				</td>
+				<td>
+					<%= data[i].views%>
+				</td>
+				<td>
+					<a href="">Edit</a>
+					<a href="">Remove</a>
+				</td>
+			</tr>
+		<% } %>
+		</tbody>
+	</table>
+</body>
+</html>

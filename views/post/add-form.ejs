@@ -1,0 +1,42 @@
+<form action="" method="post">
+	<div>
+		<label>title</label>
+		<input type="text" name="title">
+	</div>
+	<div>
+		<label>Image</label>
+		<input type="file" id="updateImage">
+		<input type="hidden" name="image" id="imgValue">
+	</div>
+	<div>
+		<label>Short desc</label>
+		<textarea name="short_desc"></textarea>
+	</div>
+	<div>
+		<label>Content</label>
+		<textarea name="content"></textarea>
+	</div>
+	<div>
+		<label>Author</label>
+		<input type="text" name="author">
+	</div>
+	<div>
+		<button type="submit">Save</button>
+	</div>
+</form>
+<script type="text/javascript">
+	function getBase64(file) {
+	   var reader = new FileReader();
+	   reader.readAsDataURL(file);
+	   reader.onload = function () {
+	   		document.querySelector('#imgValue').value = reader.result
+	   };
+	   reader.onerror = function (error) {
+	     console.log('Error: ', error);
+	   };
+	}
+	var imgUpload = document.querySelector('#updateImage')
+	imgUpload.onchange = function(){
+		getBase64(this.files[0]);
+	}
+</script>

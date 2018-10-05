@@ -14,20 +14,19 @@ connection.connect();
 router.get('/', function(req, res, next) {
   var keyword = req.query.keyword == undefined ? "" : req.query.keyword;
   
-  var sql = `select 
-                  p.*,
-                  c.name as catename
-              from posts p 
-              join categories c
-                on p.cate_id = c.id `;
+  var sql = `select c.*,
+                  (select count(*) 
+                    from posts 
+                    where cate_id = c.id) as totalPost
+             from categories c `;
   if(keyword !== ""){
-    sql += `where title like '%${keyword}%' or content like '%${keyword}%'`;
+    sql += `where name like '%${keyword}%'`;
   }
   connection.query(sql, function (err, rows, fields) {
     if (err) throw err;
 
     var data = rows;
-    res.render('welcome', { data });
+    res.render('category/index', { data });
   })
 
   
@@ -40,33 +39,29 @@ router.get('/edit/:id', function(req, res, next){
     if (err) throw err;
 
     var data = rows[0];
-    var getCategoryQuery = `select * from categories`;
-    connection.query(getCategoryQuery, function (err, rows, fields) {
-      if (err) throw err;
-      
-      res.render('post/post-form', { data, cates: rows });
-    });
+
+    res.render('post/post-form', { data });
   })
 });
 
 router.get('/remove/:id', function(req, res, next){
-  var sql = `delete from posts where id = ?`;
-  var data = [req.params.id];
-  connection.query(sql, data, function (err, rows, fields) {
+  var deletePostQuery = `delete from posts where cate_id = ${req.params.id}`;
+
+  var deleteCateQuery = `delete from categories where id = ${req.params.id}`;
+  
+  connection.query(deletePostQuery, function (err, rows, fields) {
     if (err) throw err;
 
-    res.redirect('/');
+    connection.query(deleteCateQuery, function(err, rows, fields){
+      if (err) throw  err;
+      res.redirect('/categories');
+    });
   })
 });
 
 router.get('/add-new', function(req, res, next){
-  var getCategoryQuery = `select * from categories`;
-  connection.query(getCategoryQuery, function (err, rows, fields) {
-    if (err) throw err;
-    
-    var data = {};
-    res.render('post/post-form', { data, cates: rows });
-  });
+  var data = {};
+  res.render('post/post-form', { data });
 });
 
 router.post('/save', function(req, res, next){
@@ -74,7 +69,6 @@ router.post('/save', function(req, res, next){
     var query = ` update posts
                   set
                     title = ?,
-                    cate_id = ?,
                     image = ?,
                     short_desc = ?,
                     content = ?,
@@ -83,7 +77,6 @@ router.post('/save', function(req, res, next){
                   where id = ?`;
     var data = [
       req.body.title,
-      req.body.cate_id,
       req.body.image,
       req.body.short_desc,
       req.body.content,
@@ -92,12 +85,11 @@ router.post('/save', function(req, res, next){
     ]
   }else{
     var query = ` insert into posts 
-                  ( title, cate_id, image, short_desc, 
+                  ( title, image, short_desc, 
                     content, author)
-                values (?, ?, ?, ?, ?, ?)`;
+                values (?, ?, ?, ?, ?)`;
     var data = [
       req.body.title,
-      req.body.cate_id,
       req.body.image,
       req.body.short_desc,
       req.body.content,

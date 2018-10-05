@@ -5,6 +5,19 @@
 		<input type="text" name="title" value="<%= data.title%>">
 	</div>
 	<div>
+		<label>Category</label>
+		<select name="cate_id">
+			<% for(var i = 0; i<cates.length; i++){%>
+			<option 
+				value="<%= cates[i].id %>"
+				<%if(data.cate_id == cates[i].id){%>
+					selected
+				<%}%>
+				><%= cates[i].name %></option>
+			<%}%>
+		</select>
+	</div>
+	<div>
 		<label>Image</label>
 		<%if(data.image != undefined){%>
 			<img src="<%= data.image%>" width="250">

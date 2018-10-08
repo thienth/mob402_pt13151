@@ -2,62 +2,77 @@
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	
 </head>
 <body>
-	<form action="" method="get">
-		<input type="text" name="keyword">
-		<button type="submit">Search</button>
-	</form>
-	<br>
-	<br>
-	<table border="1">
-		<thead>
-			<th>id</th>
-			<th>Title</th>
-			<th>Cate name</th>
-			<th>Image</th>
-			<th>Short description</th>
-			<th>Content</th>
-			<th>Author</th>
-			<th>Views</th>
-			<th>
-				<a href="/add-new">Add new</a>
-			</th>
-		</thead>
-		<tbody>
-		<% for (var i = 0; i < data.length; i++) { %>
-			<tr>
-				<td>
-					<%= data[i].id%>
-				</td>
-				<td>
-					<%= data[i].title%>
-				</td>
-				<td>
-					<%= data[i].catename%>
-				</td>
-				<td>
-					<img src="<%= data[i].image%>" width="100" />
-				</td>
-				<td>
-					<%= data[i].short_desc%>
-				</td>
-				<td>
-					<%= data[i].content%>
-				</td>
-				<td>
-					<%= data[i].author%>
-				</td>
-				<td>
-					<%= data[i].views%>
-				</td>
-				<td>
-					<a href="/edit/<%= data[i].id%>">Edit</a>
-					<a href="/remove/<%= data[i].id%>">Remove</a>
-				</td>
-			</tr>
-		<% } %>
-		</tbody>
-	</table>
+	<div class="container">
+		<form action="" method="get">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-row align-items-center">
+						<div class="col-auto">
+					      <label class="sr-only" for="inlineFormInputGroup">Username</label>
+					      <div class="input-group mb-2">
+					        <input type="text" class="form-control" id="inlineFormInputGroup" name="keyword" placeholder="Keyword...">
+					        <button type="submit" class="btn btn-sm btn-primary">Search</button>
+					      </div>
+					    </div>
+					</div>	
+				</div>
+			</div>
+		</form>
+		<br>
+		<br>
+		<table class="table table-striped">
+			<thead>
+				<th>id</th>
+				<th>Title</th>
+				<th>Cate name</th>
+				<th>Image</th>
+				<th>Short description</th>
+				<th>Author</th>
+				<th>Views</th>
+				<th>
+					<a href="/add-new">Add new</a>
+				</th>
+			</thead>
+			<tbody>
+			<% for (var i = 0; i < data.length; i++) { %>
+				<tr>
+					<td>
+						<%= data[i].id%>
+					</td>
+					<td>
+						<%= data[i].title%>
+					</td>
+					<td>
+						<%= data[i].catename%>
+					</td>
+					<td>
+						<img src="<%= data[i].image%>" width="100" />
+					</td>
+					<td>
+						<%= data[i].short_desc%>
+					</td>
+					
+					<td>
+						<%= data[i].author%>
+					</td>
+					<td>
+						<%= data[i].views%>
+					</td>
+					<td>
+						<a href="/edit/<%= data[i].id%>">Edit</a>
+						<a href="/remove/<%= data[i].id%>">Remove</a>
+					</td>
+				</tr>
+			<% } %>
+			</tbody>
+		</table>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>
